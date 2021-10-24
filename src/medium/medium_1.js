@@ -8,7 +8,11 @@ import {variance} from "./data/stats_helpers.js";
  * prototype functions. Very useful
  */
 export function getSum(array) {
-
+    var sum= 0;
+    for (let i = 0; i < array.length; i++) {
+        sum += array[i];
+    }
+    return sum;
 }
 
 
@@ -22,7 +26,14 @@ export function getSum(array) {
  * console.log(getMedian(array)); // 4.5
  */
 export function getMedian(array) {
-
+    var median = 0;
+    var middleIndex = Math.floor(array.length / 2) - 1;
+    if (array.length%2 == 0) {
+        median = ((array[middleIndex] + array[middleIndex + 1]) / 2);
+    } else {
+        median = array[middleIndex];
+    }
+    return median;
 }
 
 /**
@@ -45,6 +56,37 @@ export function getMedian(array) {
  }
  */
 export function getStatistics(array) {
-
+    var length = array.length;
+    var sum = 0;
+    for (let i = 0; i < array.length; i++) {
+        sum += array[i];
+    }
+    var mean = 0;
+    for (let i = 0; i < array.length; i++) {
+        mean += array[i];
+    }
+    mean = mean / array.length;
+    var median = 0;
+    var middleIndex = Math.floor(array.length / 2);
+    if (array.length%2 == 0) {
+        median = ((array[middleIndex] + array[middleIndex + 1]) / 2);
+    } else {
+        median = array[middleIndex];
+    }
+    var min = Infinity;
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] < min) {
+            min = array[i];
+        }
+    }
+    var max = 0;
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] > max) {
+            max = array[i];
+        }
+    }
+    var varianceT = variance(array, mean);
+    var stdDev = Math.sqrt(varianceT);
+    return {min: min, median: median, max: max, variance: varianceT, mean: mean, length: length, sum: sum, standard_deviation: stdDev}
 }
 
