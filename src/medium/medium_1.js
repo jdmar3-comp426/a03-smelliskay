@@ -27,9 +27,9 @@ export function getSum(array) {
  */
 export function getMedian(array) {
     var median = 0;
-    var middleIndex = Math.floor((array.length - 1) / 2);
+    var middleIndex = Math.floor(array.length / 2);
     if (array.length%2 == 0) {
-        median = ((array[middleIndex] + array[middleIndex + 1]) / 2);
+        median = ((array[middleIndex] + array[middleIndex - 1]) / 2);
     } else {
         median = array[middleIndex];
     }
