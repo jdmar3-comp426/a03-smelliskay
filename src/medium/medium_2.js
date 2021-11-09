@@ -19,11 +19,42 @@ see under the methods section
  *
  * @param {allCarStats.ratioHybrids} ratio of cars that are hybrids
  */
+
+ export const carStatHelper = (value) => {
+     if (value == 0) {
+    var array = [];
+        for (var i = 0; i < mpg_data.length; i++) {
+            array[i] = mpg_data[i].year;
+        }
+        return getStatistics(array);
+    } else if (value == 1) {
+        var cityMiles = 0;
+        var highwayMiles = 0;
+        for (var i = 0; i < mpg_data.length; i++) {
+            cityMiles += mpg_data[i].city_mpg;
+            highwayMiles += mpg_data[i].highway_mpg;
+        }
+
+        return {city: cityMiles/mpg_data.length, highway: highwayMiles/mpg_data.length}
+    } else if (value == 2) {
+        var hybridCount = 0;
+        for (var i = 0; i < mpg_data.length; i++) {
+            if (mpg_data[i].hybrid) {
+                hybridCount++;
+            }
+        }
+        return hybridCount / mpg_data.length;
+    }
+    
+}
+
 export const allCarStats = {
-    avgMpg: undefined,
-    allYearStats: undefined,
-    ratioHybrids: undefined,
+    avgMpg: carStatHelper(1),
+    allYearStats: carStatHelper(0),
+    ratioHybrids: carStatHelper(2),
 };
+
+
 
 
 /**
