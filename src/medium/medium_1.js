@@ -27,7 +27,7 @@ export function getSum(array) {
  */
 export function getMedian(array) {
     var median = 0;
-    var middleIndex = Math.floor(array.length / 2) - 1;
+    var middleIndex = Math.floor((array.length - 1) / 2);
     if (array.length%2 == 0) {
         median = ((array[middleIndex] + array[middleIndex + 1]) / 2);
     } else {
@@ -87,6 +87,6 @@ export function getStatistics(array) {
     }
     var varianceT = variance(array, mean);
     var stdDev = Math.sqrt(varianceT);
-    return {min: min, median: median, max: max, variance: varianceT, mean: mean, length: length, sum: sum, standard_deviation: stdDev}
+    return {length: length,   sum: sum,  mean: mean, median: median, min: min,  max: max, variance: varianceT, standard_deviation: stdDev}
 }
 
