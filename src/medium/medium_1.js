@@ -69,13 +69,7 @@ export function getStatistics(array) {
         mean += array[i];
     }
     mean = mean / array.length;
-    var median = 0;
-    var middleIndex = Math.floor(array.length / 2);
-    if (array.length%2 == 0) {
-        median = ((array[middleIndex] + array[middleIndex + 1]) / 2);
-    } else {
-        median = array[middleIndex];
-    }
+    
     var min = Infinity;
     for (let i = 0; i < array.length; i++) {
         if (array[i] < min) {
@@ -90,6 +84,7 @@ export function getStatistics(array) {
     }
     var varianceT = variance(array, mean);
     var stdDev = Math.sqrt(varianceT);
+    var median = getMedian(array);
     return {length: length,   sum: sum,  mean: mean, median: median, min: min,  max: max, variance: varianceT, standard_deviation: stdDev}
 }
 
