@@ -119,7 +119,72 @@ export const allCarStats = {
  *
  * }
  */
+
+
+
+export const moreStatsHelper = () => {
+    var nameListArray = [];
+    var returnArray = [];
+    for (var i = 0; i < mpg_data.length; i++) {
+        if (!nameListArray.includes(mpg_data[i].make) && mpg_data[i].hybrid) {
+            nameListArray.push(mpg_data[i].make);
+            var newObj = {make: mpg_data[i].make, hybrids: []};
+            mpg_data.forEach((value) => {
+                if ((value.make == newObj.make) && value.hybrid && !(newObj.hybrids.includes(value.id))) {
+                    newObj.hybrids.push(value.id);
+                }
+            })
+            returnArray.push(newObj);
+        }      
+    }
+    return returnArray;
+}
+
+export const moreStatsHelper1 = () => {
+    var yearList = [];
+    var retObj = {};
+    var keyCount = 0;
+    for (var i = 0; i < mpg_data.length; i++) {
+        // Finding the Year / Checking if we have already looked at this year
+        if (!yearList.includes(mpg_data[i].year)) {
+            // Adding year and creating the new object to push onto retObj as key for year key
+            yearList.push(mpg_data[i].year);
+            var yearObj = {hybrid: {city: 0, highway: 0}, notHybrid: {city: 0, highway: 0}};
+
+            var cityHybridTotal = 0, highwayHybridTotal = 0, cityNotHybridTotal = 0, highwayNotHybridTotal = 0, hybridCount = 0, notHybridCount = 0;
+
+            // Cycling through anything with proper year
+            mpg_data.forEach((value) => {
+                if (value.year == mpg_data[i].year) {
+                    // Hybrid or non-hybrid:
+                    if (value.hybrid) {
+                        hybridCount++;
+                        cityHybridTotal += value.city_mpg;
+                        highwayHybridTotal += value.highway_mpg;
+                    } else if (!value.hybrid) {
+                        notHybridCount++;
+                        cityNotHybridTotal += value.city_mpg;
+                        highwayNotHybridTotal += value.highway_mpg;
+                    }
+                }
+            })
+
+            
+
+            yearObj.hybrid.city = (cityHybridTotal / hybridCount);
+            yearObj.hybrid.highway = (highwayHybridTotal / hybridCount);
+            yearObj.notHybrid.city = (cityNotHybridTotal / notHybridCount);
+            yearObj.notHybrid.highway = (highwayNotHybridTotal / notHybridCount);
+            retObj[mpg_data[i].year] = yearObj;
+            keyCount++;
+
+        }
+    }
+    
+    return retObj;
+}
+
 export const moreStats = {
-    makerHybrids: undefined,
-    avgMpgByYearAndHybrid: undefined
+    makerHybrids: moreStatsHelper(),
+    avgMpgByYearAndHybrid: moreStatsHelper1(),
 };
