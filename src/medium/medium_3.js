@@ -78,15 +78,15 @@ export function searchMpg(car_data, minCity, minHighway) {
 export function searchName(car_data, searchTerm) {
     var returner = [];
     for (var i = 0; i < car_data.length; i++) {
-        if (car_data[i].id.contains(searchTerm)) {
+        if (car_data[i].id.search(searchTerm) != -1) {
             returner.push(car_data[i])
         }
     }
 
     returner.sort(function compareFn(firstEl, secondEl) {
-        if (firstEl.id.indexOf(searchTerm) > secondEl.id.indexOf(searchTerm)) {
+        if (firstEl.id.search(searchTerm) > secondEl.id.search(searchTerm)) {
             return 1;
-        } else if (firstEl.id.indexOf(searchTerm) < secondEl.id.indexof(searchTerm)) {
+        } else if (firstEl.id.search(searchTerm) < secondEl.id.search(searchTerm)) {
             return -1;
         } else {
             return 0;
