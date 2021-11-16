@@ -48,7 +48,22 @@ export function searchHighPower(car_data, minHorsepower, minTorque) {
  *
  */
 export function searchMpg(car_data, minCity, minHighway) {
-
+    var returner = [];
+    for (var i = 0; i < car_data.length; i++) {
+        if ((car_data[i].highway_mpg >= minHighway) && (car_data[i].city_mpg >= minCity)) {
+            returner.push(car_data[i]);
+        }
+    }
+    returner.sort(function compareFn(firstEl, secondEl) {
+        if (firstEl.highway_mpg < secondEl.highway_mpg ) {
+            return 1;
+        } else if (firstEl.highway_mpg > secondEl.highway_mpg) {
+            return -1;
+        } else {
+            return 0;
+        }
+    })
+    return returner;
 }
 
 
@@ -61,7 +76,24 @@ export function searchMpg(car_data, minCity, minHighway) {
  * @returns {[]} array of cars
  */
 export function searchName(car_data, searchTerm) {
+    var returner = [];
+    for (var i = 0; i < car_data.length; i++) {
+        if (car_data[i].id.contains(searchTerm)) {
+            returner.push(car_data[i])
+        }
+    }
 
+    returner.sort(function compareFn(firstEl, secondEl) {
+        if (firstEl.id.indexOf(searchTerm) > secondEl.id.indexOf(searchTerm)) {
+            return 1;
+        } else if (firstEl.id.indexOf(searchTerm) < secondEl.id.indexof(searchTerm)) {
+            return -1;
+        } else {
+            return 0;
+        }
+    })
+
+    return returner;
 }
 
 
@@ -74,5 +106,27 @@ export function searchName(car_data, searchTerm) {
  * @returns {[]} an array of car objects
  */
 export function searchByYear(car_data, years) {
+
+    var returner = [];
+    for (var i = 0; i < car_data.length; i++) {
+        for (var p = 0; p < years.length; p++) {
+            if (car_data[i].year == years[p]) {
+                returner.push(car_data[i]);
+                break;
+            }
+        }
+    }
+
+    returner.sort(function compareFn(firstEl, secondEl) {
+        if (firstEl.year < secondEl.year) {
+            return 1;
+        } else if (firstEl.year > secondEl.year) {
+            return -1;
+        } else {
+            return 0;
+        }
+    })
+
+    return returner;
 
 }
