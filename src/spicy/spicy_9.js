@@ -17,7 +17,17 @@
 export const repeat = (fn, n, ...params) => {
     var returner = [];
     for ( var i = 0; i < n; i++) {
-        returner.push(fn(params));
+        if (params.length == 0) {
+            returner.push(fn);
+        } else if (params.length == 1) {
+            returner.push(fn(params[0]));
+        } else if (params.length == 2) {
+            returner.push(fn(params[0], params[1]))
+        } else if (params.length == 3) {
+            returner.push(fn(params[0], params[1], params[2]));
+        } else {
+            returner.push(fn(params[0]. params[1], params[2], params[3]))
+        }
     }
     return returner;
 };
