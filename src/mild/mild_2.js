@@ -70,9 +70,9 @@ export function removeKey(object, key) {
 
  // THIS MAKE NOT MODIFY ORIGINAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 export function removeKeyNonDestructive(object, key) {
-   var returnObj = Object.assign({}, obj);
-   delete returnObj[key];
-   return returnObj;
+   var tempObj = Object.assign({}, object);
+   delete tempObj[key]
+   return tempObj;
 }
 
 /**
