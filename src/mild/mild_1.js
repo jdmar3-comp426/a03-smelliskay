@@ -9,7 +9,8 @@
  * see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
  */
 export function sumToString(a, b) {
-
+    var returner = `${a} + ${b} = ${a+b}`;
+    return returner;
 }
 
 
@@ -24,7 +25,12 @@ export function sumToString(a, b) {
  *
  */
 export function getIncreasingArray(startNumber, endNumber) {
-
+    var returnerArray = [startNumber];
+    for (let i = 1; startNumber+i != endNumber; i++) {
+        returnerArray.push(startNumber+i)
+    }
+    returnerArray.push(endNumber);
+    return returnerArray;
 }
 
 /**
@@ -35,7 +41,17 @@ export function getIncreasingArray(startNumber, endNumber) {
  * and https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
  */
 export function maxAndMin(numbers) {
-
+    var min = Infinity;
+    var max = 0;
+    for (let i = 0; i < numbers.length; i++) {
+        if (numbers[i] < min) {
+            min = numbers[i]
+        }
+        if (numbers[i] > max) {
+            max = numbers[i];
+        }
+    }
+    return {max:max, min:min}
 }
 
 /**
@@ -49,5 +65,26 @@ export function maxAndMin(numbers) {
  *
  */
 export function countArray(array) {
-
+    var uniqueEntries = [];
+    var noOccur = [];
+    for (let i = 0; i < array.length; i++) {
+        var uniqueFlag = true;
+        for (let k = 0; k < uniqueEntries.length; k++) {
+            if (array[i] == uniqueEntries[k]) {
+                noOccur[k]++;
+                uniqueFlag = false;
+                break;
+            }
+        }
+        if (uniqueFlag) {
+            uniqueEntries.push(array[i]);
+            noOccur.push(1);
+        }
+    }
+    var properties = new Map([]);
+    for (let i = 0; i < uniqueEntries.length; i++) {
+        properties.set(uniqueEntries[i], noOccur[i]);
+    }
+    var returner = Object.fromEntries(properties);
+    return returner;
 }
